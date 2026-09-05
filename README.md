@@ -1,4 +1,4 @@
-﻿# TypeScript + Playwright Automation Exercise (Русский)
+﻿# TypeScript + Playwright Automation Exercise
 
 Этот проект содержит UI и API тесты для сайта https://automationexercise.com, реализованные с помощью Playwright Test и TypeScript.
 
