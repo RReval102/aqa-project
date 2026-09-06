@@ -1,4 +1,4 @@
-import type { APIRequestContext, Page } from '@playwright/test';
+﻿import type { APIRequestContext, Page } from '@playwright/test';
 
 export type UserAccount = {
   name: string;
@@ -45,6 +45,16 @@ export function buildCreateAccountForm(user: UserAccount) {
 }
 
 export async function dismissCookieConsent(page: Page) {
+  const acceptButton = page.locator('button').filter({ hasText: /accept|agree|consent|manage/i }).first();
+
+  if (await acceptButton.count()) {
+    try {
+      await acceptButton.click({ timeout: 5000 });
+    } catch {
+      // Убираем cookie overlay после попытки согласия.
+    }
+  }
+
   await page.evaluate(() => {
     document.querySelectorAll('.fc-consent-root, .fc-dialog-overlay').forEach((element) => element.remove());
   });

@@ -1,16 +1,16 @@
-import { expect, test } from '@playwright/test';
+﻿import { expect, test } from '@playwright/test';
+import { productsListResponseSchema } from '../../src/schemas/products.schema';
 
 test('GET /api/productsList returns a populated product list with expected schema', async ({ request }) => {
   const response = await request.get('/api/productsList');
   const body = await response.json();
 
   expect(response.status()).toBe(200);
-  expect(body.responseCode).toBe(200);
-  expect(Array.isArray(body.products)).toBeTruthy();
-  expect(body.products.length).toBeGreaterThan(0);
 
-  const firstProduct = body.products[0];
-  expect(firstProduct).toMatchObject({
+  const parsed = productsListResponseSchema.parse(body);
+  expect(parsed.responseCode).toBe(200);
+  expect(parsed.products.length).toBeGreaterThan(0);
+  expect(parsed.products[0]).toMatchObject({
     id: expect.any(Number),
     name: expect.any(String),
     price: expect.any(String),
