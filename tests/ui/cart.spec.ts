@@ -1,9 +1,7 @@
-﻿import { expect, test } from '../../src/fixtures/test';
+import { expect, test } from '../../src/fixtures/pages';
 import { CartPage } from '../../src/pages/cart-page';
-import { ProductsPage } from '../../src/pages/products-page';
 
-test('add a product to cart and verify cart details', async ({ page }) => {
-  const productsPage = new ProductsPage(page);
+test('add a product to cart and verify cart details', async ({ productsPage, page }) => {
   const cartPage = new CartPage(page);
 
   await productsPage.open();
